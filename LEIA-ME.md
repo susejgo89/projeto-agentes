@@ -3,6 +3,7 @@
 Protótipo de agente de IA simples em Python para auxiliar o atendimento da **Oficina Mecânica Auto Fácil**. O sistema interpreta pedidos de revisão no terminal usando um modelo local gratuito (**Ollama + `qwen2.5:3b`**), consulta horários livres em uma ferramenta simulada e exige **confirmação humana (`S/N`)** antes de registrar o agendamento em `agendamentos.txt`.
 
 ---
+## Enlace do video: https://drive.google.com/file/d/1SJ8BBS3ah5ummCPAPy0tzN1q222zvz2k/view?usp=sharing
 
 ## 1. Como instalar e executar
 
