@@ -5,6 +5,15 @@ Protótipo de agente de IA simples em Python para auxiliar o atendimento da **Of
 ---
 ## Enlace do video: https://drive.google.com/file/d/1SJ8BBS3ah5ummCPAPy0tzN1q222zvz2k/view?usp=sharing
 
+## capturas:
+1. Cancelada:
+![Fluxo do agente](capturas/agendamento-cancelado.jpg)
+
+2. Agendamento confirmado
+![Fluxo do agente](capturas/agendamento-conf.jpg)
+3. Tentativas
+![Fluxo do agente](capturas/tentativas.jpg)
+
 ## 1. Como instalar e executar
 
 ### Pré-requisitos (ferramentas gratuitas e livres)
@@ -33,25 +42,7 @@ Protótipo de agente de IA simples em Python para auxiliar o atendimento da **Of
 
 > *(O arquivo editável [`fluxo_agente.drawio`](fluxo_agente.drawio) pode ser aberto no draw.io / diagrams.net para exportar a imagem ao gerar o documento no LibreOffice Writer.)*
 
-```text
-[1. Mensagem do cliente] (até 3 tentativas)
-          │
-          ▼
-[2. LLM: Ollama qwen2.5:3b] ──► identifica apenas o horário (ex.: "14h" ou "NENHUM")
-          │
-          ▼
-[3. Ferramenta simulada: ver_horarios_livres()] ──► ["08h", "10h", "14h", "16h"]
-          │
-          ▼
-[4. Validação: horário identificado e livre?]
-    ├── NÃO ──► Avisa o cliente + mostra horários livres
-    │             ├── Menos de 3 tentativas ──► volta ao passo [1]
-    │             └── 3 tentativas atingidas ─► encerra com mensagem educada
-    │
-    └── SIM ──► [5. Mostra resumo + Confirmação humana: "Confirmar agendamento? (S/N)"]
-                    ├── "S" ──► [6. Salva em agendamentos.txt]
-                    └── "N" ──► Cancela sem salvar no arquivo
-```
+![Fluxo do agente](capturas/fluxograma.png)
 
 ---
 
