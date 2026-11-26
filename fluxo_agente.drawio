@@ -1,0 +1,88 @@
+<mxfile host="app.diagrams.net" agent="Antigravity" version="24.7.17">
+  <diagram id="fluxo-auto-facil" name="Fluxo do Agente">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- 1. Mensagem do cliente -->
+        <mxCell id="n1" value="1. Mensagem do Cliente&#xa;(Entrada no terminal - Tentativa 1 a 3)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="380" y="30" width="280" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- 2. LLM -->
+        <mxCell id="n2" value="2. LLM (Ollama qwen2.5:3b)&#xa;Interpreta o pedido e extrai o horário (ex.: 14h)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="380" y="130" width="280" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- 3. Ferramenta simulada -->
+        <mxCell id="n3" value="3. Ferramenta Simulada&#xa;ver_horarios_livres() -&gt; [08h, 10h, 14h, 16h]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="380" y="235" width="280" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- 4. Validação -->
+        <mxCell id="n4" value="4. Validação:&#xa;Horário identificado e livre?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="405" y="340" width="230" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Ramo NÃO: Controle de tentativas -->
+        <mxCell id="n5" value="Avisa o cliente e mostra&#xa;horários livres (08h, 10h, 14h, 16h)&#xa;Ainda restam tentativas (&lt; 3)?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="335" width="240" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Encerramento educado após 3 tentativas -->
+        <mxCell id="n6" value="Encerra com mensagem educada&#xa;(Limite de 3 tentativas atingido)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="65" y="510" width="230" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- 5. Resumo e Confirmação Humana -->
+        <mxCell id="n7" value="5. Resumo do Agendamento&#xa;+ Confirmação Humana:&#xa;Confirmar agendamento? (S/N)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="395" y="485" width="250" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- 6a. Salvar -->
+        <mxCell id="n8" value="6. Salvar em agendamentos.txt&#xa;(Data/hora, horário e pedido)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="395" y="650" width="250" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- 6b. Cancelar -->
+        <mxCell id="n9" value="Cancelar sem salvar&#xa;(Exibe mensagem amigável)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="740" y="510" width="220" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Conectores -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="n1" target="n2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="n2" target="n3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="n3" target="n4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="Não" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontStyle=1;" edge="1" parent="1" source="n4" target="n5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="Sim (próxima tentativa)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontStyle=1;" edge="1" parent="1" source="n5" target="n1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="60" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" value="Não (3 tentativas)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontStyle=1;" edge="1" parent="1" source="n5" target="n6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="Sim" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontStyle=1;" edge="1" parent="1" source="n4" target="n7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="S (Sim)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontStyle=1;" edge="1" parent="1" source="n7" target="n8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="N (Não)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontStyle=1;" edge="1" parent="1" source="n7" target="n9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
